@@ -2,27 +2,22 @@
 let Phrase = require("dgamboa-palindrome");
 
 function palindromeTester() {
-  let string = prompt("Please enter a string for palindrome testing:");
-  let phrase = new Phrase(string);
+  event.preventDefault();
+
+  let phrase = new Phrase(event.target.phrase.value);
+  let palindromeResult = document.querySelector("#palindromeResult");
 
   if (phrase.palindrome()) {
-    alert(`"${phrase.content}" is a palindrome!`);
+    palindromeResult.innerHTML = `"<strong>${phrase.content}</strong>" is a palindrome!`;
   } else {
-    alert(`"${phrase.content}" is not a palindrome.`);
+    palindromeResult.innerHTML = `"${phrase.content}" is not a palindrome.`;
   }
 }
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   let button = document.querySelector("#palindromeTester");
-//   button.addEventListener("click", function() {
-//     palindromeTester();
-//   });
-// });
-
 document.addEventListener("DOMContentLoaded", function() {
-  let form = document.querySelector("#palindromeTester");
-  form.addEventListener("submit", function() {
-    palindromeTester();
+  let button = document.querySelector("#palindromeTester");
+  button.addEventListener("submit", function() {
+    palindromeTester(event);
   });
 });
 
@@ -50,7 +45,11 @@ function Phrase(content) {
 
   // Returns true for a palindrome, false otherwise.
   this.palindrome = function palindrome() {
-    return this.processedContent() === this.processedContent().reverse();
+    if (this.processedContent()) {
+      return this.processedContent() === this.processedContent().reverse();
+    } else {
+      return false;
+    }
   }
 }
 
