@@ -1,0 +1,10 @@
+#!/usr/local/bin/node
+
+let fs = require("fs");
+let Phrase = require("dgamboa-palindrome");
+let text = fs.readFileSync("phrases.txt", "utf-8");
+
+let phrases = text.split("\n");
+let palindromes = phrases.filter(phrase => new Phrase(phrase).palindrome());
+
+fs.writeFileSync("palindromes.txt", palindromes.join("\n"));
